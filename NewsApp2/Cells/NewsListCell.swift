@@ -10,11 +10,19 @@ import UIKit
 
 class NewsListCell: UITableViewCell {
     
+    let view: UIView = {
+       let view = UIView()
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 1
+        view.layer.shadowOffset = .zero
+        view.layer.shadowRadius = 10
+        return view
+    }()
+    
     let newsTitle: UILabel = {
         let title = UILabel()
         title.numberOfLines = 0
         title.textAlignment = .center
-        title.adjustsFontSizeToFitWidth = true
         title.lineBreakMode = .byWordWrapping
         return title
     }()
@@ -45,31 +53,38 @@ class NewsListCell: UITableViewCell {
     }
     
     func configureUI() {
+        addSubview(view)
         addSubview(newsTitle)
         addSubview(newsUrlToImage)
         addSubview(newsDescription)
+        
+        view.bringSubviewToFront(newsTitle)
+        view.bringSubviewToFront(newsUrlToImage)
+        view.bringSubviewToFront(newsDescription)
+
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
+        view.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0).isActive = true
+        view.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0).isActive = true
+        view.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
+        
         newsTitle.translatesAutoresizingMaskIntoConstraints = false
-        newsTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive = true
-//        newsTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0).isActive = true
-        newsTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0).isActive = true
-        newsTitle.widthAnchor.constraint(equalToConstant: 415).isActive = true
+        newsTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        newsTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        newsTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
         newsTitle.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        newsTitle.backgroundColor = UIColor.blue
         
         newsUrlToImage.translatesAutoresizingMaskIntoConstraints = false
-        newsUrlToImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive = true
-       
+        newsUrlToImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        newsUrlToImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         newsUrlToImage.topAnchor.constraint(equalTo: newsTitle.bottomAnchor, constant: 0).isActive = true
         newsUrlToImage.heightAnchor.constraint(equalToConstant: 200).isActive = true
-        newsUrlToImage.widthAnchor.constraint(equalToConstant: 415).isActive = true
         
         newsDescription.translatesAutoresizingMaskIntoConstraints = false
-        newsDescription.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50).isActive = true
-//       newsDescription.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0).isActive = true
+        newsDescription.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        newsDescription.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         newsDescription.topAnchor.constraint(equalTo: newsUrlToImage.bottomAnchor, constant: 0).isActive = true
         newsDescription.heightAnchor.constraint(equalToConstant: 110).isActive = true
-        newsDescription.widthAnchor.constraint(equalToConstant: 415).isActive = true
-        newsDescription.backgroundColor = .purple
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

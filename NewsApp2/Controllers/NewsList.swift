@@ -5,19 +5,19 @@
 //  Created by Melvin Asare  on 09/01/2020.
 //  Copyright © 2020 Melvin Asare . All rights reserved.
 
-
 import UIKit
 
 class NewsList:  UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let tableView = UITableView()
-    let searchBar = UISearchBar()
+    let tableView:  UITableView = {
+        let tableView = UITableView()
+
+        return tableView
+    }()
+    
     let cellID = "tableViewCell"
     
-    var filteredArticles: [Article] = []
-    var isSearchBarEmpty: Bool {
-        return searchBar.text?.isEmpty ?? true
-    }
+
     
     private var articleListVM: ArticleListViewModel!
     
@@ -35,19 +35,22 @@ class NewsList:  UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func positionConstraints() {
+        
+    }
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let doneReading = UITableViewRowAction(style: .destructive, title: "") { (action, indexPath) in
-            print("Finished Reading")
+        var doneReading = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            print("Delete")
+            self.articleListVM.articles.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
         
-        let favoriteAction = UITableViewRowAction(style: .normal, title: "Favourite") { (action, indexPath) in
-            print("Make Fav ")
-        }
-        return [doneReading, favoriteAction]
+        return [doneReading]
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -60,6 +63,7 @@ class NewsList:  UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! NewsListCell
+        
         
         let articleVM = self.articleListVM.articlesAtIndex(indexPath.row)
         
@@ -75,6 +79,8 @@ class NewsList:  UIViewController, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 360
     }
@@ -87,7 +93,6 @@ class NewsList:  UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewWillLayoutSubviews() {
         view.addSubview(tableView)
-        view.addSubview(searchBar)
     }
     
     func tableViewConfig() {
@@ -104,8 +109,6 @@ class NewsList:  UIViewController, UITableViewDelegate, UITableViewDataSource {
     func configureUI() {
         navigationItem.title = "Articles"
                navigationController?.navigationBar.prefersLargeTitles = true
-        
-        navigationController?.navigationBar.barTintColor = UIColor(red: 55/255, green: 120/255, blue: 250/255, alpha: 1)
     }
     
     override func viewDidLoad() {
@@ -113,7 +116,6 @@ class NewsList:  UIViewController, UITableViewDelegate, UITableViewDataSource {
         viewWillLayoutSubviews()
         tableViewConfig()
         configureUI()
-        searchBar.sizeToFit()
         setup()
         view.backgroundColor = .white
         tableView.register(NewsListCell.self, forCellReuseIdentifier: cellID)

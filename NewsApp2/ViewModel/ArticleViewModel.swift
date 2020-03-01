@@ -14,7 +14,7 @@ struct ArticleViewModel {
 }
 
 struct ArticleListViewModel {
-    let articles: [Article]
+    var articles: [Article]
 }
 
 extension ArticleViewModel {
