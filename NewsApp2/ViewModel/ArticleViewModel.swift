@@ -37,10 +37,10 @@ extension ArticleViewModel {
     }
 
     var urlToString: String {
-        return self.article.urlToImage!
+        guard let articleImage = article.urlToImage else { return "nil" }
+        return articleImage
     }
 }
-
 
 extension ArticleListViewModel {
     var numberOfSection: Int {
