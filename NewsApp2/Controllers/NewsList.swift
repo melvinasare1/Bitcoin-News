@@ -11,19 +11,48 @@ class NewsList:  UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let tableView:  UITableView = {
         let tableView = UITableView()
-
+        
         return tableView
     }()
     
     let cellID = "tableViewCell"
     
-
+    
     
     private var articleListVM: ArticleListViewModel!
     
+    let urlAddres: String = "http://newsapi.org/v2/everything?q=bitcoin&apiKey=6864313e2cfe4b9bb6999684302c4902"
+    let url: URL? = nil
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//    func loadUrl() {
+//        if let url = URL(string: urlAddres) {
+//            do {
+//                let contents = try String(contentsOf: url)
+//                print(contents)
+//                setup()
+//            }
+//            catch {
+//                print(error.localizedDescription)
+//            }
+//        } else {
+//            print("error")
+//        }
+//    }
+//
+    
     func setup() {
         
-        let url = URL(string: "http://newsapi.org/v2/everything?q=bitcoin&apiKey=6864313e2cfe4b9bb6999684302c4902")!
+    let url = URL(string: "http://newsapi.org/v2/everything?q=bitcoin&apiKey=6864313e2cfe4b9bb6999684302c4902")!
+        
+        
         
         WebServices().getArticles(url: url) { articles in
             if let articles = articles {
@@ -108,7 +137,7 @@ class NewsList:  UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func configureUI() {
         navigationItem.title = "Articles"
-               navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func viewDidLoad() {
@@ -116,6 +145,7 @@ class NewsList:  UIViewController, UITableViewDelegate, UITableViewDataSource {
         viewWillLayoutSubviews()
         tableViewConfig()
         configureUI()
+  //      loadUrl()
         setup()
         view.backgroundColor = .white
         tableView.register(NewsListCell.self, forCellReuseIdentifier: cellID)

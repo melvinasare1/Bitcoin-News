@@ -37,7 +37,7 @@ extension ArticleViewModel {
     }
 
     var urlToString: String {
-        guard let articleImage = article.urlToImage else { return "nil" }
+        guard let articleImage = article.urlToImage else { return "String" }
         return articleImage
     }
 }

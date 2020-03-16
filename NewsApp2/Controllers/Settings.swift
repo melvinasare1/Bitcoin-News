@@ -11,10 +11,7 @@ import UIKit
 class Settings: UIViewController {
 
     let cellID = "cellID"
-    let sections = ["Privacy & Settings","Notifications","Reading List"]
-    let s1 = ["Settings 1","Settings 2","Settings 3"]
-    let s2 = ["Notification 1", "Notification 2"]
-    let s3 = ["Read 1", "Read 2"]
+
     var sectionData: [Int :[String]] = [:]
     
     let tableView: UITableView = {
@@ -32,7 +29,6 @@ class Settings: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        sectionData = [0: s1, 1: s2, 2: s3]
     }
 }
 
@@ -53,10 +49,7 @@ extension Settings: UITableViewDelegate, UITableViewDataSource {
         return 3
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-      return sections[section]
-
-    }
+   
     
 //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 //

@@ -10,10 +10,15 @@ import UIKit
 
 class TabBarController: UITabBarController {
     
+    func newsListTitle() {
+        let pageOne = NewsList()
+        pageOne.navigationItem.title = "Articles"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        newsListTitle()
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Articles"
 
         let tabBar = UITabBarController()
         let pageOne = NewsList()
@@ -30,5 +35,6 @@ class TabBarController: UITabBarController {
         viewControllers = tabBarList
         
         view.backgroundColor = .white
+        
     }
 }
